@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Obtener y guardar ubicación</title>
+</head>
+<body>
+    <button onclick="obtenerUbicacionYGuardar()">Obtener Ubicación</button>
+    <form id="locationForm" action="guardar_ubicacion.php" method="post">
+        <input type="hidden" id="latitud" name="latitud" value="">
+        <input type="hidden" id="longitud" name="longitud" value="">
+    </form>
+    <script>
+        function obtenerUbicacionYGuardar() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const latitud = position.coords.latitude;
+                    const longitud = position.coords.longitude;
+
+                    // Actualiza los campos del formulario con la ubicación
+                    document.getElementById("latitud").value = latitud;
+                    document.getElementById("longitud").value = longitud;
+
+                    // Envía el formulario
+                    document.getElementById("locationForm").submit();
+                });
+            } else {
+                alert('La geolocalización no está disponible en este dispositivo');
+            }
+        }
+    </script>
+</body>
+</html>
